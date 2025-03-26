@@ -5,37 +5,102 @@ body {
   flex-direction: column;
   align-items: center;
   font-family: 'Nunito Sans', sans-serif;
+  min-height: 100vh;
+  padding: 20px;
 }
 
 h1 {
   text-align: center;
   font-weight: bold;
+  margin-bottom: 20px;
 }
 
 nav {
-  width: 80%;
-  max-width: 400px;
+  width: 100%;
+  max-width: 800px;
   display: flex;
   justify-content: center;
+  margin-bottom: 30px;
 }
 
 a {
   color: #fff;
+  text-decoration: none;
+  margin: 0 15px;
+  padding: 5px 10px;
+  border-radius: 4px;
+  transition: background-color 0.2s;
 }
 
-nav a {
-  margin: 10px;
+a:hover {
+  background-color: #5788fa;
 }
 
-.inputs {
+.request-buttons {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 30px;
+}
+
+.request-buttons > div {
+  margin-bottom: 15px;
+}
+
+#quote-container {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 30px;
+}
+
+.single-quote {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.quote-text {
+  font-style: italic;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.attribution {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.quote-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.add-quote-form {
+  width: 100%;
+  max-width: 800px;
   display: flex;
   flex-direction: column;
-  margin: 5px;
+  gap: 10px;
+  padding: 20px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 input {
   font-size: 16px;
   padding: 10px;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+input:focus {
+  outline: none;
+  border-color: #5788fa;
 }
 
 button {
@@ -46,22 +111,23 @@ button {
   color: #fff;
   padding: 10px;
   font-size: 16px;
+  transition: all 0.2s;
+  border-radius: 4px;
 }
 
 button:hover {
   background-color: #5788fa;
-  transition: background-color 0.2s;
+  transform: translateY(-1px);
 }
 
-#quote-container {
+button:active {
+  transform: translateY(0);
+}
+
+.error {
+  color: #ff4444;
+  background-color: rgba(255, 68, 68, 0.1);
   padding: 10px;
-  width: 60%;
-}
-
-.single-quote {
-  padding: 10px;
-}
-
-.quote-text {
-  font-style: italic;
+  border-radius: 4px;
+  margin: 10px 0;
 }
