@@ -98,9 +98,14 @@ const addQuote = () => {
     return;
   }
 
-  fetch(`/api/quotes?quote=${encodeURIComponent(quote)}&person=${encodeURIComponent(person)}&year=${year}`, {
-    method: "POST"
-  })
+  fetch(
+    `/api/quotes?quote=${encodeURIComponent(quote)}&person=${encodeURIComponent(
+      person
+    )}&year=${year}`,
+    {
+      method: "POST",
+    }
+  )
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -113,7 +118,20 @@ const addQuote = () => {
       document.getElementById("new-quote").value = "";
       document.getElementById("new-person").value = "";
       document.getElementById("new-year").value = "";
-      fetchAllButton.click();
+      // fetchAllButton.click();
+      // Agregar la nueva cita al contenedor
+      const newQuote = document.createElement("div");
+      newQuote.className = "single-quote";
+      newQuote.innerHTML = `
+        <div class="quote-text">${response.quote.quote}</div>
+        <div class="attribution">- ${response.quote.person}</div>
+        <div>Year: ${response.quote.year}</div>
+        <div class="quote-actions">
+          <button onclick="updateQuote(${response.quote.id})">Update</button>
+          <button onclick="deleteQuote(${response.quote.id})">Delete</button>
+        </div>
+      `;
+      quoteContainer.appendChild(newQuote);
     });
 };
 
@@ -128,9 +146,14 @@ const updateQuote = (id) => {
     return;
   }
 
-  fetch(`/api/quotes/${id}?quote=${encodeURIComponent(quote)}&person=${encodeURIComponent(person)}&year=${year}`, {
-    method: "PUT"
-  })
+  fetch(
+    `/api/quotes/${id}?quote=${encodeURIComponent(
+      quote
+    )}&person=${encodeURIComponent(person)}&year=${year}`,
+    {
+      method: "PUT",
+    }
+  )
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -140,7 +163,20 @@ const updateQuote = (id) => {
     })
     .then((response) => {
       alert("Quote updated successfully!");
-      fetchAllButton.click();
+      // fetchAllButton.click();
+      // Actualizar la cita específica en la interfaz
+      const quoteElement = document
+        .querySelector(`.single-quote button[onclick*="${id}"]`)
+        .closest(".single-quote");
+      quoteElement.innerHTML = `
+        <div class="quote-text">${response.quote.quote}</div>
+        <div class="attribution">- ${response.quote.person}</div>
+        <div>Year: ${response.quote.year}</div>
+        <div class="quote-actions">
+          <button onclick="updateQuote(${response.quote.id})">Update</button>
+          <button onclick="deleteQuote(${response.quote.id})">Delete</button>
+        </div>
+      `;
     });
 };
 
@@ -151,7 +187,7 @@ const deleteQuote = (id) => {
   }
 
   fetch(`/api/quotes/${id}`, {
-    method: "DELETE"
+    method: "DELETE",
   })
     .then((response) => {
       if (response.ok) {
@@ -162,7 +198,12 @@ const deleteQuote = (id) => {
     })
     .then((response) => {
       alert("Quote deleted successfully!");
-      fetchAllButton.click();
+      // fetchAllButton.click();
+      // Eliminar la cita específica de la interfaz
+      const quoteElement = document
+        .querySelector(`.single-quote button[onclick*="${id}"]`)
+        .closest(".single-quote");
+      quoteElement.remove();
     });
 };
 
