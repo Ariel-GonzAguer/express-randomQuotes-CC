@@ -98,13 +98,8 @@ const addQuote = () => {
     return;
   }
 
-  fetch("/api/quotes", {
-    method: "POST",
-    params: {
-      quote,
-      person,
-      year
-    }
+  fetch(`/api/quotes?quote=${encodeURIComponent(quote)}&person=${encodeURIComponent(person)}&year=${year}`, {
+    method: "POST"
   })
     .then((response) => {
       if (response.ok) {
