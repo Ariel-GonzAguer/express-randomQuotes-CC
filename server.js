@@ -8,6 +8,20 @@ const PORT = process.env.PORT || 4001;
 
 app.use(express.static("public"));
 
+app.get("/", (req, res) => {
+  res.send({
+    message: "Welcome to the Quote API!",
+    endpoints: {
+      "Get random quote": "/api/quotes/random",
+      "Get all quotes": "/api/quotes",
+      "Get quotes by author": "/api/quotes?person=[author]",
+      "Add new quote": "/api/quotes (POST)",
+      "Update quote": "/api/quotes/:id (PUT)",
+      "Delete quote": "/api/quotes/:id (DELETE)"
+    }
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
