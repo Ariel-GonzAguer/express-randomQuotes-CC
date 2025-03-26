@@ -43,11 +43,24 @@ app.post("/api/quotes", (req, res) => {
 
   if (!quote || !person) {
     res.status(400).json({ error: "Missing quote or person" });
-  } else {
-    const quoteToAdd = { quote, person };
-    quotes.push(quoteToAdd);
-    res.status(201).json({ quote: quoteToAdd });
+    return;
   }
+
+  // Generar un nuevo ID (el mayor ID existente + 1)
+  const newId = Math.max(...quotes.map(q => q.id), 0) + 1;
+
+  const quoteToAdd = { 
+    quote, 
+    person,
+    id: newId
+  };
+
+  if (req.query.year) {
+    quoteToAdd.year = parseInt(req.query.year);
+  }
+
+  quotes.push(quoteToAdd);
+  res.status(201).json({ quote: quoteToAdd });
 });
 
 app.put("/api/quotes/:id", (req, res) => {
