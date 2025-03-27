@@ -75,12 +75,14 @@ app.put("/api/quotes/:id", (req, res) => {
     return res.status(404).json({ error: "That quote does not exist" });
   }
 
+  // Mantener el ID original y actualizar los demás campos
   quotes[quoteIndex] = {
-    ...quotes[quoteIndex],
+    id: quotes[quoteIndex].id,
     quote,
     person,
+    year: req.query.year ? parseInt(req.query.year) : quotes[quoteIndex].year
   };
-
+  
   res.status(200).json({ quote: quotes[quoteIndex] });
 });
 
